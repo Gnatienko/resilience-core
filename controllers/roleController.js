@@ -11,6 +11,12 @@ class RoleController {
         const role = await Role.findAll()
         return res.json(role)
     }
+
+    async update(req, res) {
+        const {name,id,weight} = req.body
+        const role = await Role.update({name, weight},{where: {id} })
+        return res.json(role)
+    }
 }
 
 module.exports = new RoleController()
