@@ -1,11 +1,14 @@
 require('dotenv').config()
 const express = require('express')
 const sequelize = require('./db')
-
-
+const cors = require('cors')
+const router = require('./routes/index')
 
 const app = express()
 const PORT = process.env.PORT
+
+app.use(express.json())
+app.use('/api', router)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
