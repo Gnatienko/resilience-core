@@ -6,4 +6,7 @@ router.post('/', roleController.create)
 router.get('/', roleController.getAll)
 router.put('/', roleController.update)
 
+router.post('/create', roleController.createQuery) //temp
+
+
 module.exports = router

@@ -10,8 +10,16 @@ const Role = sequelize.define('role', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     weight: {type: DataTypes.REAL},
-
 })
+
+const ExecutorRole = sequelize.define('executor_role', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    qualification: {type: DataTypes.REAL},
+    execution: {type: DataTypes.REAL},
+})
+
+Executor.belongsToMany(Role, {through: ExecutorRole })
+Role.belongsToMany(Executor, {through: ExecutorRole })
 
 module.exports = {
     Executor,
