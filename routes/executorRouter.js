@@ -5,7 +5,8 @@ const executorController = require('../controllers/executorController')
 router.post('/', executorController.create)
 router.get('/', executorController.get)
 router.put('/', executorController.update)
-router.put('/role', executorController.executorRole)
-
+router.put('/skill', executorController.executorSkillSet)
+router.get('/skill', executorController.executorSkillGet)
+router.put('/duty', executorController.executorDutySet)
 
 module.exports = router

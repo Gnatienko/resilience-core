@@ -1,5 +1,6 @@
 const {Executor} = require('../models/models')
 const {Role} = require('../models/models')
+const { Op } = require('sequelize')
 
 class ExecutorController {
 
@@ -25,12 +26,32 @@ class ExecutorController {
         return res.json(executor)
     }
 
-    async executorRole(req, res) {
-        const {executorId,roleId, execution, qualification} = req.query
+    async executorSkillSet(req, res) {
+        const {executorId,roleId, qualification} = req.query
         const executor = await Executor.findOne({where: {id:executorId} })
         const role = await Role.findOne({where: {id:roleId} })
-        await executor.addRole(role,{through: {execution, qualification}})
-        return res.json(1)
+        await executor.addRole(role,{through: {execution:0, qualification}})
+        return res.json(executor)
+    }
+
+    async executorDutySet(req, res) {
+        const {executorId,roleId, execution} = req.query
+        const executor = await Executor.findOne({where: {id:executorId} })
+        const role = await Role.findOne({where: {id:roleId} })
+        await executor.addRole(role,{through: {execution}})
+        return res.json(executor)
+    }
+
+    async executorSkillGet(req, res) {
+        const {id} = req.query
+        const executorSkills = await Role.findAll({
+            include: [{
+              model: Executor,
+              where: {id},
+              through: {where: {qualification: {[Op.gt]:0}}},
+            }],
+          })
+          return res.json(executorSkills)
     }
 
 
