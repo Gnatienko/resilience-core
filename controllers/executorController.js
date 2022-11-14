@@ -1,6 +1,8 @@
 const {Executor} = require('../models/models')
 const {Role} = require('../models/models')
-const { Op } = require('sequelize')
+const {ExecutorRole} = require('../models/models')
+
+const { Op, where } = require('sequelize')
 
 class ExecutorController {
 
@@ -26,14 +28,15 @@ class ExecutorController {
         return res.json(executor)
     }
 
-    async executorSkillSet(req, res) {
+    async setSkill(req, res) {
         const {executorId,roleId,qualification} = req.query
         const executor = await Executor.findOne({where: {id:executorId} })
         const role = await Role.findOne({where: {id:roleId} })
         await executor.addRole(role,{through: {execution:0, qualification}})
         return res.json(executor)
     }
-    async executorSkillGet(req, res) {
+
+    async getSkills(req, res) { //todo change via ExecutorRole
         const {id} = req.query
         const executorSkills = await Role.findAll({
             include: [{
@@ -45,23 +48,21 @@ class ExecutorController {
           return res.json(executorSkills)
     }
 
-    async executorDutySet(req, res) {
-        const {executorId,roleId, execution} = req.query
-        const executor = await Executor.findOne({where: {id:executorId} })
-        const role = await Role.findOne({where: {id:roleId} })
-        await executor.addRole(role,{through: {execution}})
-        return res.json(executor)
+    async setDuty(req, res) { 
+        const {executorId,roleId} = req.query
+        
+        const executorRole = await ExecutorRole.findOne({where:{executorId,roleId}})
+        const qualification = executorRole.qualification
+        await executorRole.update({execution:qualification})
+        return res.json(executorRole)
     }
-    async executorDutyGet(req, res) {
-        const {id} = req.query
-        const executorSkills = await Role.findAll({
-            include: [{
-              model: Executor,
-              where: {id},
-              through: {where: {execution: {[Op.gt]:0}}},
-            }],
-          })
-          return res.json(executorSkills)
+
+    async getDuties(req, res) {
+        const {executorId, roleId} = req.query
+        let executorDuties
+        if(roleId) { executorDuties = await ExecutorRole.findOne({where: {executorId, roleId, execution:{[Op.gt]:0}} })}
+        else {executorDuties = await ExecutorRole.findAll({ where:{executorId, execution:{[Op.gt]:0}}})}
+        return res.json(executorDuties)
     }
 
 }

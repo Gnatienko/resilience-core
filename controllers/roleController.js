@@ -13,7 +13,6 @@ class RoleController {
         if(id) { role = await await Role.findOne({where: {id} })}
         else {role = await await Role.findAll()}
         return res.json(role)
-        
     }
 
     async update(req, res) {
