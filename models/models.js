@@ -24,6 +24,5 @@ Role.belongsToMany(Executor, {through: ExecutorRole })
 module.exports = {
     ExecutorRole,
     Executor,
-    Role,
-    Gps
+    Role
 }
