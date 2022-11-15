@@ -7,10 +7,10 @@ router.get('/', executorController.get)
 router.put('/', executorController.update)
 
 router.put('/skill', executorController.setSkill)
-router.get('/skills', executorController.getSkills)
+router.get('/skill', executorController.getSkill)
 
 
 router.put('/duty', executorController.setDuty)
-router.get('/duty', executorController.getDuties)
+router.get('/duty', executorController.getDuty)
 
 module.exports = router

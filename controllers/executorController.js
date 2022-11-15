@@ -36,16 +36,12 @@ class ExecutorController {
         return res.json(executor)
     }
 
-    async getSkills(req, res) { //todo change via ExecutorRole
-        const {id} = req.query
-        const executorSkills = await Role.findAll({
-            include: [{
-              model: Executor,
-              where: {id},
-              through: {where: {qualification: {[Op.gt]:0}}},
-            }],
-          })
-          return res.json(executorSkills)
+    async getSkill(req, res) { 
+        const {executorId, roleId} = req.query
+        let executorSkills
+        if(roleId) { executorSkills = await ExecutorRole.findOne({where: {executorId, roleId, qualification:{[Op.gt]:0}} })}
+        else {executorSkills = await ExecutorRole.findAll({ where:{executorId, qualification:{[Op.gt]:0}}})}
+        return res.json(executorSkills)
     }
 
     async setDuty(req, res) { 
@@ -57,7 +53,7 @@ class ExecutorController {
         return res.json(executorRole)
     }
 
-    async getDuties(req, res) {
+    async getDuty(req, res) {
         const {executorId, roleId} = req.query
         let executorDuties
         if(roleId) { executorDuties = await ExecutorRole.findOne({where: {executorId, roleId, execution:{[Op.gt]:0}} })}
