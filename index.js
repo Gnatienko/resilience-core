@@ -8,9 +8,9 @@ const app = express()
 const PORT = process.env.PORT
 
 app.use(express.json())
-app.use('/api', router)
+app.use('/', router)
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello, you are using the Resilience API!')
 })
 
