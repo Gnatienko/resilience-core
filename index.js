@@ -8,8 +8,8 @@ const app = express()
 const PORT = process.env.PORT
 
 app.use(express.json())
+app.use(cors({origin: '*'}))
 app.use('/', router)
-
 app.get('/', (req, res) => {
   res.send('Hello, you are using the Resilience API!')
 })
