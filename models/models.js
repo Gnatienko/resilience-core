@@ -15,7 +15,7 @@ const Role = sequelize.define("role", {
 const ExecutorRole = sequelize.define("executor_role", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   qualification: { type: DataTypes.REAL },
-  execution: { type: DataTypes.BOOLEAN },
+  isDuty: { type: DataTypes.BOOLEAN },
 })
 
 Executor.belongsToMany(Role, { through: ExecutorRole })
