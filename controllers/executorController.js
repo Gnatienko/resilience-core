@@ -6,8 +6,8 @@ const { Op, where } = require("sequelize")
 
 class ExecutorController {
   async create(req, res) {
-    const { name } = req.query
-    const executor = await Executor.create({ name })
+    const { name, salary } = req.query
+    const executor = await Executor.create({ name, salary })
     return res.json(executor)
   }
 
@@ -23,8 +23,8 @@ class ExecutorController {
   }
 
   async update(req, res) {
-    const { name, id } = req.query
-    const executor = await Executor.update({ name }, { where: { id } })
+    const { name, id, salary } = req.query
+    const executor = await Executor.update({ name, salary }, { where: { id } })
     return res.json(executor)
   }
 
