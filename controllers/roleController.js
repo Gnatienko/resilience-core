@@ -1,4 +1,5 @@
 const { Role } = require("../models/models")
+const { ExecutorRole } = require("../models/models")
 
 class RoleController {
   async create(req, res) {
@@ -11,9 +12,23 @@ class RoleController {
     let { id } = req.query
     let role
     if (id) {
-      role = await await Role.findOne({ where: { id } })
+      role = await Role.findOne({ where: { id } })
+      const roleExecutors = await ExecutorRole.findAll({
+        where: { roleId: id, isDuty: "true" },
+      })
+      const roleExecutionInSkillHours = roleExecutors.reduce(
+        (accumulator, object) => {
+          return accumulator + object.qualification
+        },
+        0
+      )
+      const relativeRoleExecution =
+        roleExecutionInSkillHours / role.requiredSkillHours
+
+      role.dataValues.roleExecutionInSkillHours = roleExecutionInSkillHours
+      role.dataValues.relativeRoleExecution = relativeRoleExecution
     } else {
-      role = await await Role.findAll()
+      role = await Role.findAll()
     }
     return res.json(role)
   }
