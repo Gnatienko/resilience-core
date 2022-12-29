@@ -11,6 +11,7 @@ const Role = sequelize.define("role", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true },
   weight: { type: DataTypes.REAL },
+  requiredSkillHours: { type: DataTypes.REAL },
 })
 
 const ExecutorRole = sequelize.define("executor_role", {

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn("executors", "salary", {
+    return queryInterface.addColumn("roles", "requiredSkillHours", {
       type: Sequelize.REAL,
     })
   },
