@@ -1,5 +1,6 @@
 const { Executor } = require("../models/models")
 const { Role } = require("../models/models")
+const { ExecutorRole } = require("../models/models")
 
 class ExecutorRoleController {
   async setSkill(req, res) {
@@ -9,6 +10,15 @@ class ExecutorRoleController {
     await executor.addRole(role, { through: { qualification } })
 
     return res.status(200).send("Ok")
+  }
+
+  async setDuty(req, res) {
+    const { executorId, roleId, isDuty } = req.query
+    const executorRole = await ExecutorRole.findOne({
+      where: { executorId, roleId },
+    })
+    await executorRole.update({ isDuty: isDuty })
+    return res.json(executorRole)
   }
 }
 module.exports = new ExecutorRoleController()

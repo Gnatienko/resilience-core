@@ -1,5 +1,4 @@
 const { Executor } = require("../models/models")
-const { Role } = require("../models/models")
 const { ExecutorRole } = require("../models/models")
 
 const { Op, where } = require("sequelize")
@@ -25,14 +24,6 @@ class ExecutorController {
   async update(req, res) {
     const { name, id, salary } = req.query
     const executor = await Executor.update({ name, salary }, { where: { id } })
-    return res.json(executor)
-  }
-
-  async setSkill(req, res) {
-    const { executorId, roleId, qualification } = req.query
-    const executor = await Executor.findOne({ where: { id: executorId } })
-    const role = await Role.findOne({ where: { id: roleId } })
-    await executor.addRole(role, { through: { execution: 0, qualification } })
     return res.json(executor)
   }
 

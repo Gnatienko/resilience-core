@@ -17,6 +17,7 @@ class RoleController {
         where: { roleId: id, isDuty: "true" },
       })
       const roleExecutionInSkillHours = roleExecutors.reduce(
+        //todo add h
         (accumulator, object) => {
           return accumulator + object.qualification
         },
