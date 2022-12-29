@@ -7,7 +7,8 @@ class ExecutorRoleController {
     const executor = await Executor.findOne({ where: { id: executorId } })
     const role = await Role.findOne({ where: { id: roleId } })
     await executor.addRole(role, { through: { qualification } })
-    return res.json(executor)
+
+    return res.status(200).send("Ok")
   }
 }
 module.exports = new ExecutorRoleController()
