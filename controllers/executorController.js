@@ -37,6 +37,7 @@ class ExecutorController {
     } else {
       executorSkills = await ExecutorRole.findAll({
         where: { executorId, qualification: { [Op.gt]: 0 } },
+        order: [["id", "DESC"]],
       })
     }
     return res.json(executorSkills)
