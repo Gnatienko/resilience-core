@@ -35,9 +35,9 @@ class RoleController {
   }
 
   async update(req, res) {
-    const { name, id, weight, required_skill_hours } = req.query
+    const { name, id, weight, requiredSkillHours } = req.query
     const role = await Role.update(
-      { name, weight, requiredSkillHours: required_skill_hours },
+      { name, weight, requiredSkillHours: requiredSkillHours },
       { where: { id } }
     )
     return res.json(role)
