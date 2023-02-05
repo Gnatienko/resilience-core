@@ -2,6 +2,7 @@ const { Executor } = require("../models/models")
 const { Role } = require("../models/models")
 const { ExecutorRole } = require("../models/models")
 
+//todo add assigned hours per week
 class ExecutorRoleController {
   async setSkill(req, res) {
     const { executorId, roleId, qualification } = req.query
