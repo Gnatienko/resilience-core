@@ -20,5 +20,18 @@ class ExecutorRoleController {
     await executorRole.update({ isDuty: isDuty })
     return res.json(executorRole)
   }
+
+  async get(req, res) {
+    const { executorId, roleId } = req.query
+    let executorRole
+    if (executorId && roleId) {
+      executorRole = await ExecutorRole.findOne({
+        where: { executorId, roleId },
+      })
+    } else {
+      executorRole = await ExecutorRole.findAll()
+    }
+    return res.json(executorRole)
+  }
 }
 module.exports = new ExecutorRoleController()
