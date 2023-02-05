@@ -5,6 +5,7 @@ const executorController = require("../controllers/executorController")
 router.post("/", executorController.create)
 router.get("/", executorController.get)
 router.put("/", executorController.update)
+router.delete("/", executorController.delete)
 
 router.get("/skill", executorController.getSkill)
 

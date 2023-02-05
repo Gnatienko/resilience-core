@@ -27,6 +27,15 @@ class ExecutorController {
     return res.json(executor)
   }
 
+  async delete(req, res) {
+    const { id } = req.query
+    const executor = await Executor.findOne({ where: { id } })
+    if (executor) {
+      await executor.destroy()
+    }
+    return res.json(executor)
+  }
+
   async getSkill(req, res) {
     const { executorId, roleId } = req.query
     let executorSkills
