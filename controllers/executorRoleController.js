@@ -28,6 +28,10 @@ class ExecutorRoleController {
       executorRole = await ExecutorRole.findOne({
         where: { executorId, roleId },
       })
+    } else if (executorId) {
+      executorRole = await ExecutorRole.findAll({ where: { executorId } })
+    } else if (roleId) {
+      executorRole = await ExecutorRole.findAll({ where: { roleId } })
     } else {
       executorRole = await ExecutorRole.findAll()
     }
