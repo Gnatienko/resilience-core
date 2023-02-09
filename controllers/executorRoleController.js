@@ -37,5 +37,16 @@ class ExecutorRoleController {
     }
     return res.json(executorRole)
   }
+
+  async delete(req, res) {
+    const { executorId, roleId } = req.query
+    const executorRole = await ExecutorRole.findOne({
+      where: { executorId, roleId },
+    })
+    if (executorRole) {
+      await executorRole.destroy()
+    }
+    return res.json(executorRole)
+  }
 }
 module.exports = new ExecutorRoleController()
