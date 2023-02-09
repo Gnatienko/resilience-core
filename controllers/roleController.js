@@ -27,6 +27,15 @@ class RoleController {
     )
     return res.json(role)
   }
+
+  async delete(req, res) {
+    const { id } = req.query
+    const role = await Role.findOne({ where: { id } })
+    if (role) {
+      await role.destroy()
+    }
+    return res.json(role)
+  }
 }
 
 module.exports = new RoleController()
