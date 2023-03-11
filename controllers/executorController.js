@@ -38,12 +38,20 @@ class ExecutorController {
   }
 
   async delete(req, res) {
-    const { id } = req.query
-    const executor = await Executor.findOne({ where: { id } })
-    if (executor) {
-      await executor.destroy()
+    try {
+      const { id } = req.query
+      const executor = await Executor.findOne({ where: { id } })
+      if (executor) {
+        await executor.destroy()
+
+        return res.json("Executor id successfully deleted")
+      } else {
+        return res.json("Executor with such ID does not exist")
+      }
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({ error: "Internal server error" })
     }
-    return res.json(executor)
   }
 
   async getSkill(req, res) {
