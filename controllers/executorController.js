@@ -23,8 +23,18 @@ class ExecutorController {
 
   async update(req, res) {
     const { name, id, salary } = req.query
-    const executor = await Executor.update({ name, salary }, { where: { id } })
-    return res.json(executor)
+    try {
+      const executor = await Executor.update(
+        { name, salary },
+        { where: { id } }
+      )
+      return res.json(
+        executor == 1 ? "Executor successfully updated" : "Something went wrong"
+      )
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({ message: "Internal Server Error" })
+    }
   }
 
   async delete(req, res) {
