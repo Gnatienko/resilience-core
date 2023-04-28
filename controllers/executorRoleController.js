@@ -9,7 +9,7 @@ class ExecutorRoleController {
     const executor = await Executor.findOne({ where: { id: executorId } })
     const role = await Role.findOne({ where: { id: roleId } })
     await executor.addRole(role, { through: { qualification, hoursPerWeek } })
-    return res.status(200).send("Ok")
+    return res.status(200).json(role)
   }
 
   async setDuty(req, res) {
