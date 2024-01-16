@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@react-oauth/google": "^0.12.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -25,8 +24,5 @@
     "sequelize": "^6.25.4",
     "sequelize-auto-migrations-v2": "^1.2.1",
     "sequelize-cli": "^6.5.2"
-  },
-  "engines": {
-    "node": "16.x"
   }
 }
