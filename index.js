@@ -1,4 +1,4 @@
-//npm run dev.
+//npm run dev
 
 require("dotenv").config()
 const express = require("express")
