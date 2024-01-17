@@ -1,14 +1,15 @@
 const Router = require("express")
 const router = new Router()
 const executorController = require("../controllers/executorController")
+const authMiddleware = require("../middleware/authMiddleware")
 
-router.post("/", executorController.create)
-router.get("/", executorController.get)
-router.put("/", executorController.update)
-router.delete("/", executorController.delete)
+router.post("/", authMiddleware, executorController.create)
+router.get("/", authMiddleware, executorController.get)
+router.put("/", authMiddleware, executorController.update)
+router.delete("/", authMiddleware, executorController.delete)
 
-router.get("/skill", executorController.getSkill)
+router.get("/skill", authMiddleware, executorController.getSkill)
 
-router.get("/duty", executorController.getDuty)
+router.get("/duty", authMiddleware, executorController.getDuty)
 
 module.exports = router
