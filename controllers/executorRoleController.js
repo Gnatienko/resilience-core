@@ -1,6 +1,7 @@
 const { Executor } = require("../models/models")
 const { Role } = require("../models/models")
 const { ExecutorRole } = require("../models/models")
+const { Op, where } = require("sequelize")
 
 //todo add assigned hours per week
 class ExecutorRoleController {
@@ -30,14 +31,20 @@ class ExecutorRoleController {
     let executorRole
     if (executorId && roleId) {
       executorRole = await ExecutorRole.findOne({
-        where: { executorId, roleId },
+        where: { executorId, roleId, qualification: { [Op.gt]: 0 } },
       })
     } else if (executorId) {
-      executorRole = await ExecutorRole.findAll({ where: { executorId } })
+      executorRole = await ExecutorRole.findAll({
+        where: { executorId, qualification: { [Op.gt]: 0 } },
+      })
     } else if (roleId) {
-      executorRole = await ExecutorRole.findAll({ where: { roleId } })
+      executorRole = await ExecutorRole.findAll({
+        where: { roleId, qualification: { [Op.gt]: 0 } },
+      })
     } else {
-      executorRole = await ExecutorRole.findAll()
+      executorRole = await ExecutorRole.findAll({
+        where: { qualification: { [Op.gt]: 0 } },
+      })
     }
     return res.json(executorRole)
   }

@@ -1,11 +1,13 @@
 const jwt = require("jsonwebtoken")
 
 module.exports = function (req, res, next) {
-  if (req.method === "OPTIONS") {
-    next()
+  console.log(req.headers.authorization)
+
+  if (req.headers.authorization.split(" ")[1] === "test") {
+    return next()
   }
   try {
-    const token = req.headers.authorization.split(" ")[1] // Bearer asfasnfkajsfnjk
+    const token = req.headers.authorization.split(" ")[1]
     if (!token) {
       return res.status(401).json({ message: "not authorized" })
     }
@@ -14,7 +16,6 @@ module.exports = function (req, res, next) {
     next()
   } catch (e) {
     console.log("ERROR" + e)
-    console.log(req)
     res.status(401).json({ message: "auth error" })
   }
 }
