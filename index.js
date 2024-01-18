@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(cors({ origin: "*" }))
 app.use("/", router)
 app.get("/", (req, res) => {
-  res.send("Hello, you are using the Resilience API v0.0.2")
+  res.send("Hello, you are using the Resilience API v0.0.3")
 })
 
 const start = async () => {
