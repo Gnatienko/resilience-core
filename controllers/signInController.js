@@ -11,7 +11,6 @@ class SignInController {
         audience: client_id,
       })
       const payload = ticket.getPayload()
-
       const jwtToken = jwt.sign(payload, process.env.SECRET)
       return res.status(200).json({ jwtToken })
     } catch (error) {
